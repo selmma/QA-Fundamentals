@@ -1,0 +1,1073 @@
+{
+	"info": {
+		"_postman_id": "c3bb8dee-113c-470e-a01d-1172b81550af",
+		"name": "QA POSTMAN",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Trello",
+			"item": [
+				{
+					"name": "Delete ID",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "https://api.trello.com/1/boards/{{BoardID}}?key={{key}}&token={{token}}",
+							"protocol": "https",
+							"host": [
+								"api",
+								"trello",
+								"com"
+							],
+							"path": [
+								"1",
+								"boards",
+								"{{BoardID}}"
+							],
+							"query": [
+								{
+									"key": "key",
+									"value": "{{key}}"
+								},
+								{
+									"key": "token",
+									"value": "{{token}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Change name",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "https://api.trello.com/1/boards/{{BoardID}}?key={{key}}&token={{token}}&name=test test",
+							"protocol": "https",
+							"host": [
+								"api",
+								"trello",
+								"com"
+							],
+							"path": [
+								"1",
+								"boards",
+								"{{BoardID}}"
+							],
+							"query": [
+								{
+									"key": "key",
+									"value": "{{key}}"
+								},
+								{
+									"key": "token",
+									"value": "{{token}}"
+								},
+								{
+									"key": "name",
+									"value": "test test"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET Board ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://api.trello.com/1/boards/{{BoardID}}?key={{key}}&token={{token}}&name=test test",
+							"protocol": "https",
+							"host": [
+								"api",
+								"trello",
+								"com"
+							],
+							"path": [
+								"1",
+								"boards",
+								"{{BoardID}}"
+							],
+							"query": [
+								{
+									"key": "key",
+									"value": "{{key}}"
+								},
+								{
+									"key": "token",
+									"value": "{{token}}"
+								},
+								{
+									"key": "name",
+									"value": "test test"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST Board novi test",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "1c4eec25-dbc9-4287-bcae-aabdb50e2e15",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Response time is less than 200ms\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(200);",
+									"});",
+									"",
+									"pm.test(\"Successful POST request\", function () {",
+									"    pm.expect(pm.response.code).to.be.oneOf([200,202]);",
+									"});",
+									"pm.test(\"Validate board name\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    console.log(jsonData.name);",
+									"    pm.expect(jsonData.name).to.eql(\"Postman Board\");",
+									"});",
+									"",
+									"pm.test(\"Validate board name\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    console.log(jsonData.des);",
+									"    pm.expect(jsonData.desc).to.eql(\"\");",
+									"});",
+									"",
+									"",
+									"var jsonData = pm.response.json();",
+									"var id = jsonData.id;",
+									"console.log(id);",
+									"pm.globals.set(\"BoardID\",id);",
+									"pm.environment.set(\"envBoardID\",id);",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "https://api.trello.com/1/boards?name=board&key={{key}}&token={{token}}",
+							"protocol": "https",
+							"host": [
+								"api",
+								"trello",
+								"com"
+							],
+							"path": [
+								"1",
+								"boards"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "board"
+								},
+								{
+									"key": "key",
+									"value": "{{key}}"
+								},
+								{
+									"key": "token",
+									"value": "{{token}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "post Lists",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "028c0707-588b-49f7-b977-f2874d1607da",
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"var id = jsonData.id;",
+									"console.log(id);",
+									"pm.environment.set(\"ListID\",id);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "",
+								"value": "",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://api.trello.com/1/lists?name=to do&idBoard={{BoardID}}&key={{key}}&token={{token}}",
+							"protocol": "https",
+							"host": [
+								"api",
+								"trello",
+								"com"
+							],
+							"path": [
+								"1",
+								"lists"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "to do"
+								},
+								{
+									"key": "idBoard",
+									"value": "{{BoardID}}"
+								},
+								{
+									"key": "key",
+									"value": "{{key}}"
+								},
+								{
+									"key": "token",
+									"value": "{{token}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PUT lists",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "https://api.trello.com/1/lists/{{ListID}}?name=v&key={{key}}&token={{token}}",
+							"protocol": "https",
+							"host": [
+								"api",
+								"trello",
+								"com"
+							],
+							"path": [
+								"1",
+								"lists",
+								"{{ListID}}"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "v"
+								},
+								{
+									"key": "key",
+									"value": "{{key}}"
+								},
+								{
+									"key": "token",
+									"value": "{{token}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET lists",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://api.trello.com/1/lists/{{ListID}}?key={{key}}&token={{token}}",
+							"protocol": "https",
+							"host": [
+								"api",
+								"trello",
+								"com"
+							],
+							"path": [
+								"1",
+								"lists",
+								"{{ListID}}"
+							],
+							"query": [
+								{
+									"key": "key",
+									"value": "{{key}}"
+								},
+								{
+									"key": "token",
+									"value": "{{token}}"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "GET HTML page",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "90ac067d-c065-4e51-8e7b-7481f4d02e1d",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Status code is 500\", function () {",
+							"    pm.response.to.have.status(500);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://www.google.com/",
+					"protocol": "https",
+					"host": [
+						"www",
+						"google",
+						"com"
+					],
+					"path": [
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET JPG",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "9483b06f-70ee-4ad3-82f4-8cebbbd18d65",
+						"exec": [
+							"pm.test(\"Status code is 404\", function () {",
+							"    pm.response.to.have.status(404);",
+							"});",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://www.insidescience.org/sites/default/files/sites/default/files/images/articles/top-images/2018/5_heic1808a_crop.jpg",
+					"protocol": "https",
+					"host": [
+						"www",
+						"insidescience",
+						"org"
+					],
+					"path": [
+						"sites",
+						"default",
+						"files",
+						"sites",
+						"default",
+						"files",
+						"images",
+						"articles",
+						"top-images",
+						"2018",
+						"5_heic1808a_crop.jpg"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "For petlja",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "2ce476b1-6b71-45b3-a4ed-66006dd5315d",
+						"exec": [
+							"pm.test(\"Validate array of objects\", function () {",
+							"    var jsonData = pm.response.json();",
+							"   // console.log(jsonData[3]);",
+							"    var jedanObjekat = jsonData[3];",
+							"    pm.expect(jedanObjekat.title).to.eql(\"et porro tempora\");",
+							"   // console.log(jedanObjekat.title);",
+							"    pm.expect(jedanObjekat.id).to.eql(4);",
+							"    //console.log(jedanObjekat.id); ",
+							"    ",
+							"    var i;",
+							"for (i = 0; i <jsonData.length ; i++) { ",
+							"    ",
+							"    if (jsonData[i].title == \"quo adipisci enim quam ut ab\") {",
+							"    console.log(jsonData[i]);",
+							"    console.log(\"našli smo usera\");",
+							"}",
+							"}",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://jsonplaceholder.typicode.com/todos",
+					"protocol": "https",
+					"host": [
+						"jsonplaceholder",
+						"typicode",
+						"com"
+					],
+					"path": [
+						"todos"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET XML",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "61585d1e-7e17-4d90-8742-d8c5a8a7abc3",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Status code is 500\", function () {",
+							"    pm.response.to.have.status(500);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://www.klix.ba/rss/vijesti/kultura",
+					"protocol": "https",
+					"host": [
+						"www",
+						"klix",
+						"ba"
+					],
+					"path": [
+						"rss",
+						"vijesti",
+						"kultura"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET JSON",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d284d572-266e-461c-b39f-b7fe7d4216a1",
+						"exec": [
+							"pm.test(\"Status code is 500\", function () {",
+							"    pm.response.to.have.status(500);",
+							"});",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Status code is 400\", function () {",
+							"    pm.response.to.have.status(400);",
+							"});",
+							"pm.test(\"Response time is less than 100ms\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(100);",
+							"",
+							"});",
+							"pm.test(\"Content-Type is present\", function () {",
+							"    pm.response.to.have.header(\"Content-Type\");",
+							"});",
+							"pm.test(\"Server is present\", function () {",
+							"    pm.response.to.have.header(\"Server\");",
+							"});",
+							"pm.test(\"X-Powered-By\", function () {",
+							"    pm.response.to.have.header(\"X-Powered-By\");",
+							"});",
+							"",
+							"pm.test(\"Check value of heade X-Powered-By\", function () {",
+							"   pm.response.to.have.header(\"X-Powered-By\");",
+							"   pm.response.to.be.header(\"X-Powered-By\",\"Express\");",
+							"});",
+							"",
+							"pm.test(\"Body matches string\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"title\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://jsonplaceholder.typicode.com/todos",
+					"protocol": "https",
+					"host": [
+						"jsonplaceholder",
+						"typicode",
+						"com"
+					],
+					"path": [
+						"todos"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET HTML with params",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "9cd7142d-5ece-45d9-8f6f-dbcbaaceee14",
+						"exec": [
+							"pm.test(\"Status code is 500\", function () {",
+							"    pm.response.to.have.status(500);",
+							"});",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/x-www-form-urlencoded",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://google.com/search?q=snow",
+					"protocol": "https",
+					"host": [
+						"google",
+						"com"
+					],
+					"path": [
+						"search"
+					],
+					"query": [
+						{
+							"key": "q",
+							"value": "snow",
+							"description": "this is for search"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET JSON test2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "4cb3ed5d-a9bb-48b6-a227-d08ffce83f94",
+						"exec": [
+							"pm.test(\"Body matches string\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"args\");",
+							"});",
+							"pm.test(\"Json\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    console.log(jsonData.headers.Accept);",
+							"    var accept = jsonData.headers.Accept;",
+							"    pm.expect(accept).to.eql(\"*/*\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://httpbin.org/get",
+					"protocol": "http",
+					"host": [
+						"httpbin",
+						"org"
+					],
+					"path": [
+						"get"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "success GET JSON",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://httpbin.org/get",
+							"protocol": "http",
+							"host": [
+								"httpbin",
+								"org"
+							],
+							"path": [
+								"get"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Access-Control-Allow-Credentials",
+							"value": "true"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Content-Encoding",
+							"value": "gzip"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Date",
+							"value": "Wed, 26 Jun 2019 10:11:39 GMT"
+						},
+						{
+							"key": "Referrer-Policy",
+							"value": "no-referrer-when-downgrade"
+						},
+						{
+							"key": "Server",
+							"value": "nginx"
+						},
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "DENY"
+						},
+						{
+							"key": "X-XSS-Protection",
+							"value": "1; mode=block"
+						},
+						{
+							"key": "Content-Length",
+							"value": "239"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"args\": {},\n    \"headers\": {\n        \"Accept\": \"*/*\",\n        \"Accept-Encoding\": \"gzip, deflate\",\n        \"Cache-Control\": \"no-cache\",\n        \"Host\": \"httpbin.org\",\n        \"Postman-Token\": \"2174630e-454c-49b3-ba3d-cff3872ef31e\",\n        \"User-Agent\": \"PostmanRuntime/7.15.0\"\n    },\n    \"origin\": \"77.77.213.14, 77.77.213.14\",\n    \"url\": \"https://httpbin.org/get\"\n}"
+				},
+				{
+					"name": "http://httpbin.org/get",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://httpbin.org/get",
+							"protocol": "http",
+							"host": [
+								"httpbin",
+								"org"
+							],
+							"path": [
+								"get"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Access-Control-Allow-Credentials",
+							"value": "true"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Content-Encoding",
+							"value": "gzip"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Date",
+							"value": "Wed, 26 Jun 2019 10:11:39 GMT"
+						},
+						{
+							"key": "Referrer-Policy",
+							"value": "no-referrer-when-downgrade"
+						},
+						{
+							"key": "Server",
+							"value": "nginx"
+						},
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "DENY"
+						},
+						{
+							"key": "X-XSS-Protection",
+							"value": "1; mode=block"
+						},
+						{
+							"key": "Content-Length",
+							"value": "239"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"args\": {},\n    \"headers\": {\n        \"Accept\": \"*/*\",\n        \"Accept-Encoding\": \"gzip, deflate\",\n        \"Cache-Control\": \"no-cache\",\n        \"Host\": \"httpbin.org\",\n        \"Postman-Token\": \"2174630e-454c-49b3-ba3d-cff3872ef31e\",\n        \"User-Agent\": \"PostmanRuntime/7.15.0\"\n    },\n    \"origin\": \"77.77.213.14, 77.77.213.14\",\n    \"url\": \"https://httpbin.org/get\"\n}"
+				}
+			]
+		},
+		{
+			"name": "GET JSON test3",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "b7693c92-988b-4f42-80d9-9bfdcd494956",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Response time is less than 100ms\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(100);",
+							"});",
+							"",
+							"",
+							"pm.test(\"Header Connection\", function () {",
+							"    pm.response.to.have.header(\"Connection\");",
+							"});",
+							"pm.test(\"Check value of heade Connection\", function () {",
+							"   pm.response.to.have.header(\"Connection\");",
+							"   pm.response.to.be.header(\"Connection\",\"keep-alive\");",
+							"});",
+							"pm.test(\"Connection\", function () {",
+							"    var mojResponse = pm.response.json();",
+							"    console.log(mojResponse);",
+							"    pm.expect(mojResponse.icon_url).to.eql(\"https://assets.chucknorris.host/img/avatar/chuck-norris.png\");",
+							"",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://api.chucknorris.io/jokes/random",
+					"protocol": "https",
+					"host": [
+						"api",
+						"chucknorris",
+						"io"
+					],
+					"path": [
+						"jokes",
+						"random"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "GET JSON test3",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://api.chucknorris.io/jokes/random",
+							"protocol": "https",
+							"host": [
+								"api",
+								"chucknorris",
+								"io"
+							],
+							"path": [
+								"jokes",
+								"random"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Wed, 26 Jun 2019 12:33:50 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json;charset=UTF-8"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Via",
+							"value": "1.1 vegur"
+						},
+						{
+							"key": "Expect-CT",
+							"value": "max-age=604800, report-uri=\"https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct\""
+						},
+						{
+							"key": "Server",
+							"value": "cloudflare"
+						},
+						{
+							"key": "CF-RAY",
+							"value": "4ecf3642eedcbf28-FRA"
+						},
+						{
+							"key": "Content-Encoding",
+							"value": "gzip"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"categories\": [],\n    \"created_at\": \"2016-05-01 10:51:41.584544\",\n    \"icon_url\": \"https://assets.chucknorris.host/img/avatar/chuck-norris.png\",\n    \"id\": \"8sZ_4MsmSoqWAaLySUVWLQ\",\n    \"updated_at\": \"2016-05-01 10:51:41.584544\",\n    \"url\": \"https://api.chucknorris.io/jokes/8sZ_4MsmSoqWAaLySUVWLQ\",\n    \"value\": \"Chuck Norris is so hard he jumped from the effiel tower broke both his legs and walked to the hospital\"\n}"
+				}
+			]
+		},
+		{
+			"name": "GET JSON Weather",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "api.openweathermap.org/data/2.5/weather?q=London&appid=e74080e1f071807f0d9f3f393f4bdfb1",
+					"host": [
+						"api",
+						"openweathermap",
+						"org"
+					],
+					"path": [
+						"data",
+						"2.5",
+						"weather"
+					],
+					"query": [
+						{
+							"key": "q",
+							"value": "London"
+						},
+						{
+							"key": "appid",
+							"value": "e74080e1f071807f0d9f3f393f4bdfb1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Mail auth",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "b828fefa2a279620cdf886a15d6ddf60-us3",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "test",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://us3.api.mailchimp.com/3.0/lists",
+					"protocol": "https",
+					"host": [
+						"us3",
+						"api",
+						"mailchimp",
+						"com"
+					],
+					"path": [
+						"3.0",
+						"lists"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Post mail",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "b828fefa2a279620cdf886a15d6ddf60-us3",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "test",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"status\": \"subscribed\",\n\t\"email_address\": \"sel.h@gmail.com\"\n\t\n}"
+				},
+				"url": {
+					"raw": "https://us3.api.mailchimp.com/3.0/lists/922fe2c8eb/members",
+					"protocol": "https",
+					"host": [
+						"us3",
+						"api",
+						"mailchimp",
+						"com"
+					],
+					"path": [
+						"3.0",
+						"lists",
+						"922fe2c8eb",
+						"members"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Jokes",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Postman-Token",
+						"value": "e6af9c0f-9265-4d54-931b-10849b0e6301"
+					},
+					{
+						"key": "cache-control",
+						"value": "no-cache"
+					}
+				],
+				"url": {
+					"raw": "https://api.chucknorris.io/jokes/random",
+					"protocol": "https",
+					"host": [
+						"api",
+						"chucknorris",
+						"io"
+					],
+					"path": [
+						"jokes",
+						"random"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
